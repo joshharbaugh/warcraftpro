@@ -8,9 +8,9 @@ define('MODULES', APPPATH.'modules/');
 define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 ?>
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org" ng-app="wp">
+<html xmlns:ng="http://angularjs.org" ng:app="wp">
 <head>
-	<title ng-bind-template="{{contentModule}} | Warcraft Professional">Warcraft Professional</title>
+	<title ng:bind-template="{{contentModule}} | Warcraft Professional">Warcraft Professional</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -34,7 +34,7 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 	    echo "<!-- END   $name : $resolvedPath -->\n";
 	}
 
-	function loadModules(&$modules, $startDir=MODULES, $parentModule='sl') {
+	function loadModules(&$modules, $startDir=MODULES, $parentModule='wp') {
 		if( substr($startDir,-1) != '/' ) {
 			$startDir .= '/';
 		}
@@ -61,8 +61,8 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 			}
 
 			// Now add the module to the master list
-			if( $parentModule == 'sl' && $subdir == 'main' ) {
-				$moduleName = 'sl';
+			if( $parentModule == 'wp' && $subdir == 'main' ) {
+				$moduleName = 'wp';
 			} else {
 				$moduleName = $parentModule.'.'.$subdir;
 			}
@@ -84,7 +84,7 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 	foreach( $modules as $module ) {
 		// Bootstrap each of the modules whether they asked to bootstrapped or not
 		$moduleName = json_encode($module['name']);
-		echo "<script type=\"text/javascript\">sl.require('sl',$moduleName);</script>".PHP_EOL;
+		echo "<script type=\"text/javascript\">wp.require('wp',$moduleName);</script>".PHP_EOL;
 		inlineJS($module['name'], "{$module['dir']}/js/".DEPENDENCY_FILE);
 	}
 	echo "<!-- END   Dependency Resolution -->\n\n";
@@ -92,7 +92,7 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 	foreach($modules as $module) {
 		$modulename = $module['name'];
 		echo "<script type=\"text/javascript\">\n";
-		echo "angular.module('{$modulename}', sl.require('{$modulename}'));\n";
+		echo "angular.module('{$modulename}', wp.require('{$modulename}'));\n";
 		echo "</script>\n";
 	}
 	echo "<!-- END   Module Definitions -->\n";
@@ -107,6 +107,9 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 		echo "\n<!-- END   {$module['name']} Module Includes -->\n\n";
 	}
 ?>
+	<script type="text/javascript">
+		angular.module('wp').run(function() { setTimeout(function() { console.log("wp run"); });
+	</script>
 
 </head>
 <body>
