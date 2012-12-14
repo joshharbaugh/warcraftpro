@@ -1,1 +1,2 @@
-wp.require('wp','wp.navigation');
+wp.require('wp','ngGrid');
+wp.require('wp','ngResource');

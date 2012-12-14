@@ -8,9 +8,9 @@ define('MODULES', APPPATH.'modules/');
 define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 ?>
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org" ng:app="wp">
+<html xmlns:ng="http://angularjs.org" ng-app="wp">
 <head>
-	<title ng:bind-template="{{contentModule}} | Warcraft Professional">Warcraft Professional</title>
+	<title>Warcraft Professional</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -18,7 +18,8 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="taffydb/taffy.js"></script>
 	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-resource.min.js"></script>
 	<script type="text/javascript" src="js/modules.js"></script>
 
 <?php
@@ -107,9 +108,6 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 		echo "\n<!-- END   {$module['name']} Module Includes -->\n\n";
 	}
 ?>
-	<script type="text/javascript">
-		angular.module('wp').run(function() { setTimeout(function() { console.log("wp run"); });
-	</script>
 
 </head>
 <body>
@@ -145,7 +143,17 @@ define('BASE_PATH', dirname($_SERVER['SCRIPT_NAME']).'/');
 			</div>
 		</div>
 	</div>
-	<div>Coming soon.</div>
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span12" wp-container="main">
+				<div class="container" data-spy="affix" data-offset-top="0" style="margin-top:41px;">
+					<h1 class="span6">Alchemy</h1>
+					<input type="search" ng-model="query" placeholder="Search realm" class="span4 pull-right" />
+				</div>
+				<div data-wp-realms-table></div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
