@@ -1,0 +1,8 @@
+<table class="table table-striped table-hover" style="float:left;margin-top:100px;">
+	<tbody>
+		<tr ng-repeat="realm in filteredData | filter:query">
+			<td ng-click="getAuctions(realm.slug)">{{realm.name}}</td>
+			<td>1000G</td>
+		</tr>
+	</tbody>
+</table>
